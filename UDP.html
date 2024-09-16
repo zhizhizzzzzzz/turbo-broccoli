@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的第一个HTML页面</title>
+  <meta charset="UTF-8">
+  <title>UDP视频流</title>
 </head>
 <body>
-    <h1>你好，世界！</h1>
-    <p>这是一个最基础的HTML文件。</p>
+  <video id="video" autoplay></video>
+  <script>
+    const video = document.getElementById('video');
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onmessage = (event) => {
+      const blob = new Blob([event.data], { type: 'video/mp4' });
+      video.src = URL.createObjectURL(blob);
+    };
+  </script>
 </body>
 </html>
