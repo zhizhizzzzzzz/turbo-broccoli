@@ -8,10 +8,11 @@
   <video id="video" autoplay></video>
   <script>
     const video = document.getElementById('video');
-    const ws = new WebSocket('ws://localhost:8080');
+    const ws = new WebSocket('ws://127.0.0.1:8080');
 
     ws.onmessage = (event) => {
-      const blob = new Blob([event.data], { type: 'video/mp4' });
+      const arrayBuffer = event.data;
+      const blob = new Blob([arrayBuffer], { type: 'video/mp4' });
       video.src = URL.createObjectURL(blob);
     };
   </script>
